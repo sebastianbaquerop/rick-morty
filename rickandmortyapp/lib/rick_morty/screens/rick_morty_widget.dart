@@ -47,7 +47,12 @@ class _RickAndMortyState extends State<RickAndMorty> {
           return Text(result.exception.toString());
         }
         if (result.isLoading) {
-          return const Text('Loading');
+          return Center(
+            child: const CircularProgressIndicator(
+              semanticsLabel: 'Loading',
+              color: Colors.white,
+            ),
+          );
         }
         List? repositories = result.data?['characters']?['results'];
         if (repositories == null) {
