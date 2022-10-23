@@ -89,17 +89,39 @@ class _RickAndMortyState extends State<RickAndMorty> {
                           padding: EdgeInsets.all(10),
                           child: Row(
                             children: [
-                              Text('Status:'),
-                              Text(repository['status'] ?? ''),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              Text('Specie:'),
-                              Text(repository['species'] ?? ''),
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Specie:',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      Text(repository['species'] ?? ''),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Status:',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(repository['status'] ?? ''),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),

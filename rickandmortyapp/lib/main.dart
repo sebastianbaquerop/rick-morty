@@ -77,10 +77,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Center(child: Text(widget.title)),
-          backgroundColor: Color.fromARGB(213, 323, 123, 0),
+          backgroundColor: Colors.black54,
           bottom: const TabBar(tabs: [Text('Crossword'), Text('Rick&Morty')]),
         ),
-        body: TabBarView(children: [Crossword(), RickAndMorty()]),
+        body: TabBarView(children: [
+          Container(
+              decoration: BoxDecoration(color: Colors.black26),
+              child: Crossword()),
+          Container(
+              decoration: BoxDecoration(color: Colors.grey),
+              child: RickAndMorty())
+        ]),
       ),
     );
   }
