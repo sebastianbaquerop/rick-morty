@@ -129,7 +129,20 @@ class _CrosswordState extends State<Crossword> {
                             if (newText == '') {
                               setState(() {
                                 showText = false;
+                                showTexLocation = false;
                                 text = newText;
+                                founds = [];
+                                location = '';
+                              });
+                            }
+                          },
+                          onFieldSubmitted: (newText) {
+                            if (newText != '') {
+                              // text = wordController.text.toUpperCase();
+                              setState(() {
+                                showText = true;
+                                text = wordController.text;
+                                _findWord();
                               });
                             }
                           }),
@@ -240,9 +253,9 @@ class _CrosswordState extends State<Crossword> {
     // in the word
     if (index == n) {
       location += path;
-      print('location = $location');
+      print('locationPath = $location');
       showTexLocation = true;
-      print('location = $xiYiXfYf');
+      print('xiYiXfYf = $xiYiXfYf');
 
       print('founds = $founds');
       founds = deleteDuplicated(founds);
