@@ -72,10 +72,7 @@ class _CrosswordState extends State<Crossword> {
                   children: <Widget>[
                     for (int i = 0; i != crossword.length; ++i)
                       for (int j = 0; j != crossword[0].length; ++j)
-                        (xoYo.length > 2 &&
-                                xfYf.length > 2 &&
-                                (i == xoYo[0] && j == xoYo[1] ||
-                                    i == xfYf[0] && j == xfYf[1]))
+                        (founds.length > 0 && coordinatesFound(i, j, founds))
                             ? Card(
                                 color: Colors.white,
                                 child: Center(
@@ -248,7 +245,7 @@ class _CrosswordState extends State<Crossword> {
       print('location = $xiYiXfYf');
 
       print('founds = $founds');
-      deleteDuplicated(founds);
+      founds = deleteDuplicated(founds);
       return;
     }
 
@@ -276,9 +273,20 @@ class _CrosswordState extends State<Crossword> {
 
 void generateCrossword() {}
 
-deleteDuplicated(founds) {
+deleteDuplicated(List<Map<String, dynamic>> founds) {
   var set = Set<CrosswordModel>.from(founds.map<CrosswordModel>(
       (position) => CrosswordModel(position['row'], position['col'])));
   var result = set.map((person) => person.toMap()).toList();
   print('result = $result');
+  return result;
+}
+
+bool coordinatesFound(int x, int y, List<Map<String, dynamic>> array) {
+  bool result = false;
+  array.forEach((element) {
+    if (element['row'] == x && element['col'] == y) {
+      result = true;
+    }
+  });
+  return result;
 }
