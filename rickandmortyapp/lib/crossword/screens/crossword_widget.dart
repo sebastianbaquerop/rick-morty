@@ -34,6 +34,7 @@ class neighbors extends State<Crossword> {
   List<List<int>> xiYiXfYf = [];
   List<List<int>> xfYf2 = [];
   List<Map<String, dynamic>> founds = [];
+  List<Map<String, dynamic>> foundsFiltered = [];
 
 // These arrays are used to get row and column
 // numbers of 8 neighboursof a given cell
@@ -72,7 +73,8 @@ class neighbors extends State<Crossword> {
                   children: <Widget>[
                     for (int i = 0; i != crossword.length; ++i)
                       for (int j = 0; j != crossword[0].length; ++j)
-                        (founds.length > 0 && isCoordinatesFound(i, j, founds))
+                        (foundsFiltered.length >= 2 &&
+                                isCoordinatesFound(i, j, foundsFiltered))
                             ? Card(
                                 color: Colors.white,
                                 child: Center(
@@ -132,6 +134,7 @@ class neighbors extends State<Crossword> {
                                 showTexLocation = false;
                                 text = newText;
                                 founds = [];
+                                foundsFiltered = [];
                                 location = '';
                               });
                             }
@@ -142,6 +145,10 @@ class neighbors extends State<Crossword> {
                               setState(() {
                                 showText = true;
                                 text = wordController.text;
+                                founds = [];
+                                foundsFiltered = [];
+                                location = '';
+
                                 _findWord();
                               });
                             }
@@ -183,11 +190,9 @@ class neighbors extends State<Crossword> {
                         onPressed: () {
                           if (wordController.text != '') {
                             // text = wordController.text.toUpperCase();
-                            setState(() {
-                              showText = true;
-                              text = wordController.text;
-                              _findWord();
-                            });
+                            showText = true;
+                            text = wordController.text;
+                            _findWord();
                           }
                         }),
                   ],
@@ -225,7 +230,7 @@ class neighbors extends State<Crossword> {
           checkPath(crossword, i, j, -1, -1, word, "", 0, n);
   }
 
-// A utility function to do DFS for a 2D boolean
+// A utility function to check path from a 2D String
 // matrix. It only considers the 4 neighbors as
 // vertical and horizontal vertices
   checkPath(crossword, row, col, prevRow, prevCol, word, path, index, n) {
@@ -250,7 +255,10 @@ class neighbors extends State<Crossword> {
     if (index == n) {
       location += path;
       showTexLocation = true;
-      founds = deleteDuplicated(founds);
+      setState(() {
+        foundsFiltered = deleteDuplicated(founds);
+        print('result  founds filtered= $foundsFiltered');
+      });
       return;
     }
 
