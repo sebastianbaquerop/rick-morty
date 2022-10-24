@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,23 +10,23 @@ class Crossword extends StatefulWidget {
   Crossword({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CrosswordState();
+  State<StatefulWidget> createState() => neighbors();
 }
 
-class _CrosswordState extends State<Crossword> {
+class neighbors extends State<Crossword> {
   TextEditingController wordController = new TextEditingController();
   bool showText = false;
   bool showTexLocation = false;
   String text = '';
   String location = '';
   List<List<String>> crossword = [
-    ['Z', 'E', 'E', 'K', 'T', 'F', 'O', 'R', 'G', 'E', 'E', 'K', 'T'],
-    ['G', 'E', 'E', 'K', 'E', 'Q', 'U', 'I', 'Z', 'G', 'E', 'E', 'E'],
-    ['I', 'D', 'E', 'Q', 'S', 'P', 'R', 'A', 'C', 'T', 'I', 'C', 'S'],
-    ['I', 'T', 'E', 'S', 'O', 'R', 'O', 'A', 'C', 'T', 'I', 'C', 'O'],
-    ['I', 'D', 'E', 'Q', 'R', 'P', 'R', 'A', 'C', 'T', 'I', 'C', 'R'],
-    ['I', 'D', 'E', 'Q', 'O', 'P', 'R', 'A', 'C', 'T', 'I', 'C', 'O'],
-    ['I', 'D', 'E', 'Q', 'A', 'P', 'R', 'A', 'C', 'T', 'I', 'C', 'Z'],
+    ['A', 'E', 'E', 'K', 'T', 'D', 'R', 'A', 'G', 'O', 'N', 'K', 'T'],
+    ['C', 'A', 'S', 'A', 'E', 'Q', 'U', 'I', 'Z', 'G', 'E', 'E', 'E'],
+    ['I', 'D', 'E', 'Q', 'S', 'P', 'R', 'A', 'C', 'P', 'I', 'C', 'S'],
+    ['I', 'T', 'E', 'S', 'O', 'R', 'O', 'A', 'C', 'X', 'L', 'C', 'O'],
+    ['I', 'D', 'E', 'Q', 'R', 'A', 'M', 'A', 'C', 'Y', 'O', 'C', 'R'],
+    ['I', 'L', 'E', 'Q', 'O', 'P', 'R', 'A', 'C', 'Z', 'R', 'C', 'O'],
+    ['I', 'D', 'E', 'Q', 'A', 'P', 'R', 'A', 'C', 'W', 'O', 'C', 'Z'],
   ];
 
   List<int> xoYo = [];
@@ -42,7 +43,6 @@ class _CrosswordState extends State<Crossword> {
   @override
   void initState() {
     super.initState();
-    generateCrossword();
   }
 
   @override
@@ -72,7 +72,7 @@ class _CrosswordState extends State<Crossword> {
                   children: <Widget>[
                     for (int i = 0; i != crossword.length; ++i)
                       for (int j = 0; j != crossword[0].length; ++j)
-                        (founds.length > 0 && coordinatesFound(i, j, founds))
+                        (founds.length > 0 && isCoordinatesFound(i, j, founds))
                             ? Card(
                                 color: Colors.white,
                                 child: Center(
@@ -213,17 +213,20 @@ class _CrosswordState extends State<Crossword> {
     int totalRows = crossword.length;
     int totalColS = crossword[0].length;
     String wordsFound;
+
     // traverse through the all cells of given matrix
     for (int i = 0; i < totalRows; ++i)
       for (int j = 0; j < totalColS; ++j)
+
         // occurrence of first character in matrix
         if (crossword[i][j] == word[0])
+
           // check and print if path exists
           checkPath(crossword, i, j, -1, -1, word, "", 0, n);
   }
 
 // A utility function to do DFS for a 2D boolean
-// matrix. It only considers the 4 neighbours as
+// matrix. It only considers the 4 neighbors as
 // vertical and horizontal vertices
   checkPath(crossword, row, col, prevRow, prevCol, word, path, index, n) {
     // return if current character doesn't match with
@@ -242,22 +245,11 @@ class _CrosswordState extends State<Crossword> {
       founds.add({'row': row, 'col': col});
     }
 
-// if (crossword[row][col] == word[index]) {
-//       var position = wordToSearch.indexOf(word[index]);
-//       if (position == 0 || position == wordToSearch.length - 1) {
-//         xiYiXfYf.add([row, col]);
-//         print('position = $position');
-//       }
-//     }
     // current character matches with the last character
     // in the word
     if (index == n) {
       location += path;
-      print('locationPath = $location');
       showTexLocation = true;
-      print('xiYiXfYf = $xiYiXfYf');
-
-      print('founds = $founds');
       founds = deleteDuplicated(founds);
       return;
     }
@@ -284,8 +276,6 @@ class _CrosswordState extends State<Crossword> {
   }
 }
 
-void generateCrossword() {}
-
 deleteDuplicated(List<Map<String, dynamic>> founds) {
   var set = Set<CrosswordModel>.from(founds.map<CrosswordModel>(
       (position) => CrosswordModel(position['row'], position['col'])));
@@ -294,7 +284,7 @@ deleteDuplicated(List<Map<String, dynamic>> founds) {
   return result;
 }
 
-bool coordinatesFound(int x, int y, List<Map<String, dynamic>> array) {
+bool isCoordinatesFound(int x, int y, List<Map<String, dynamic>> array) {
   bool result = false;
   array.forEach((element) {
     if (element['row'] == x && element['col'] == y) {
