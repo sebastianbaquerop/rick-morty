@@ -62,78 +62,11 @@ class _RickAndMortyState extends State<RickAndMorty> {
             itemCount: repositories.length,
             itemBuilder: (context, index) {
               final repository = repositories[index];
-              return Card(
-                  color: Color.fromRGBO(255, 240, 201, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.all(15),
-                  elevation: 10,
-
-                  // Dentro de esta propiedad usamos ClipRRect
-                  child: ClipRRect(
-                    // Los bordes del contenido del card se cortan usando BorderRadius
-                    borderRadius: BorderRadius.circular(10),
-
-                    // EL widget hijo que será recortado segun la propiedad anterior
-                    child: Column(
-                      children: <Widget>[
-                        // Usamos el widget Image para mostrar una imagen
-                        // Usamos Container para el contenedor de la descripción
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            repository['name'] ?? '',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                        Image(
-                          // Como queremos traer una imagen desde un url usamos NetworkImage
-                          image: NetworkImage(repository['image'] ?? ''),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'Specie:',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      Text(repository['species'] ?? ''),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        'Status:',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Text(repository['status'] ?? ''),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ));
+              return CardScrollWidget(
+                  repository['name'] ?? '',
+                  repository['image'] ?? '',
+                  repository['status'] ?? '',
+                  repository['species'] ?? '');
             });
       },
     );
