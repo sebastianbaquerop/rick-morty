@@ -37,8 +37,8 @@ class neighbors extends State<Crossword> {
 
 // These arrays are used to get row and column
 // numbers of 8 neighboursof a given cell
-  List<double> xDir = [-1, 0, 0, 1];
-  List<double> yDir = [0, -1, 1, 0];
+  List<double> xDir = [0, 1, 0, -1];
+  List<double> yDir = [1, 0, -1, 0];
 
   @override
   void initState() {
