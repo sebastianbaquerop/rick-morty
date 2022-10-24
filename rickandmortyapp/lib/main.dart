@@ -78,7 +78,25 @@ class _MyHomePageState extends State<MyHomePage> {
           // the App.build method, and use it to set our appbar title.
           title: Center(child: Text(widget.title)),
           backgroundColor: Colors.black54,
-          bottom: const TabBar(tabs: [Text('Crossword'), Text('Rick&Morty')]),
+          bottom: TabBar(
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(
+                  color: Color.fromRGBO(255, 240, 201, 1), width: 5.0),
+            ),
+            tabs: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Crossword',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                ),
+              ),
+              Text(
+                'Rick&Morty',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+              )
+            ],
+          ),
         ),
         body: TabBarView(children: [
           Container(

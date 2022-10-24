@@ -50,7 +50,7 @@ class _RickAndMortyState extends State<RickAndMorty> {
           return Center(
             child: const CircularProgressIndicator(
               semanticsLabel: 'Loading',
-              color: Colors.white,
+              color: Color.fromRGBO(255, 240, 201, 1),
             ),
           );
         }
@@ -63,6 +63,7 @@ class _RickAndMortyState extends State<RickAndMorty> {
             itemBuilder: (context, index) {
               final repository = repositories[index];
               return Card(
+                  color: Color.fromRGBO(255, 240, 201, 1),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   margin: EdgeInsets.all(15),
