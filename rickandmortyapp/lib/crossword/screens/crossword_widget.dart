@@ -154,47 +154,52 @@ class neighbors extends State<Crossword> {
                             }
                           }),
                     ),
-                    Row(
-                      children: [
-                        if (showText)
-                          Expanded(
-                              child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(text,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(255, 240, 201, 1),
-                                )),
-                          )),
-                        if (showTexLocation)
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(location,
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, top: 4.0, right: 4.0, bottom: 8.0),
+                      child: Row(
+                        children: [
+                          if (showText)
+                            Expanded(
+                              child: Text(text,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Color.fromRGBO(255, 240, 201, 1),
                                   )),
                             ),
-                          )
-                      ],
+                          if (showTexLocation)
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(location,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(255, 240, 201, 1),
+                                    )),
+                              ),
+                            )
+                        ],
+                      ),
                     ),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(color: Colors.grey)))),
-                        child: Text('Buscar'),
-                        onPressed: () {
-                          if (wordController.text != '') {
-                            // text = wordController.text.toUpperCase();
-                            showText = true;
-                            text = wordController.text;
-                            _findWord();
-                          }
-                        }),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      side: BorderSide(color: Colors.grey)))),
+                          child: Text('Buscar'),
+                          onPressed: () {
+                            if (wordController.text != '') {
+                              // text = wordController.text.toUpperCase();
+                              showText = true;
+                              text = wordController.text;
+                              _findWord();
+                            }
+                          }),
+                    ),
                   ],
                 ),
               ),
